@@ -1,0 +1,154 @@
+{
+    "data": [
+        {
+            "name": "Alex",
+            "class_date": "2025-04-15",
+            "attended_hours": "0",
+            "raw_hours": "0"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-04-16",
+            "attended_hours": "6",
+            "raw_hours": "7.5"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-04-18",
+            "attended_hours": "6",
+            "raw_hours": "7.5"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-04-21",
+            "attended_hours": "6",
+            "raw_hours": "7.5"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-04-22",
+            "attended_hours": "5.9",
+            "raw_hours": "7.4"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-04-24",
+            "attended_hours": "6",
+            "raw_hours": "7.5"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-04-25",
+            "attended_hours": "6",
+            "raw_hours": "7.5"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-04-28",
+            "attended_hours": "6",
+            "raw_hours": "7.5"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-04-29",
+            "attended_hours": "6",
+            "raw_hours": "7.5"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-04-30",
+            "attended_hours": "5.87",
+            "raw_hours": "7.37"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-05",
+            "attended_hours": "6",
+            "raw_hours": "7.5"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-06",
+            "attended_hours": "5.97",
+            "raw_hours": "7.47"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-07",
+            "attended_hours": "5.97",
+            "raw_hours": "7.47"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-08",
+            "attended_hours": "6",
+            "raw_hours": "7.5"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-09",
+            "attended_hours": "3",
+            "raw_hours": "3"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-12",
+            "attended_hours": "0",
+            "raw_hours": "0"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-13",
+            "attended_hours": "0",
+            "raw_hours": "0"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-14",
+            "attended_hours": "0",
+            "raw_hours": "0"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-15",
+            "attended_hours": "6.02",
+            "raw_hours": "7.52"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-16",
+            "attended_hours": "7",
+            "raw_hours": "8.5"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-19",
+            "attended_hours": "6",
+            "raw_hours": "7.5"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-20",
+            "attended_hours": "2.88",
+            "raw_hours": "3.48"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-21",
+            "attended_hours": "3",
+            "raw_hours": "3.35"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-22",
+            "attended_hours": "5.3",
+            "raw_hours": "6.8"
+        },
+        {
+            "name": "Alex",
+            "class_date": "2025-05-23",
+            "attended_hours": "6",
+            "raw_hours": "7.5"
+        }
+    ]
+}

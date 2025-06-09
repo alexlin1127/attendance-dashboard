@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Title</title>
+
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+        />
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+
+    <body>
+        <pre style="font-size: 1.3rem;">
+            
+            依下方提供的打卡資料，以Chart.js製作個人出勤儀表板，儀表板內容需包含
+            1.總課程時數
+            2.實際上課時數
+            3.缺席時數
+            4.遲到時數
+            5.早退時數
+            6.出勤比率 (attended_hours/class_hours)
+            7.出席狀況圓餅圖(僅包含出席、缺席)
+            8.每日上課時數折線圖
+            9.每日在校時數長條圖
+        </pre>
+
+        <div class="container-fluid px-5">
+            <div class="row">
+                <div
+                    id="student_name"
+                    style="
+                        font-size: 2rem;
+                        font-weight: 600;
+                        padding-bottom: 30px;
+                        padding-left: 20px;
+                    "
+                ></div>
+            </div>
+        </div>
+
+        <div class="container-fluid px-5">
+            <div class="row" id="attendance-card">
+                <div class="col-12 col-md-2">
+                    <div class="card text-center pt-1 border-primary shadow">
+                        <div class="card-title" style="font-size: 1.8rem; font-weight: 600;">總課程時數</div>
+                        <div class="card-body" id="class_hours" style="font-size: 2rem;"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2">
+                    <div class="card text-center pt-1 border-primary shadow">
+                        <div class="card-title" style="font-size: 1.8rem; font-weight: 600;">實際上課時數</div>
+                        <div class="card-body" id="attended_hours" style="font-size: 2rem;"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2">
+                    <div class="card text-center pt-1 border-primary shadow">
+                        <div class="card-title" style="font-size: 1.8rem; font-weight: 600;">缺席時數</div>
+                        <div class="card-body" id="absent_hours" style="font-size: 2rem;"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2">
+                    <div class="card text-center pt-1 border-primary shadow">
+                        <div class="card-title" style="font-size: 1.8rem; font-weight: 600;">遲到時數</div>
+                        <div class="card-body" id="late_hours" style="font-size: 2rem;"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2">
+                    <div class="card text-center pt-1 border-primary shadow">
+                        <div class="card-title" style="font-size: 1.8rem; font-weight: 600;">早退時數</div>
+                        <div class="card-body" id="leave_early_hours" style="font-size: 2rem;"></div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-2">
+                    <div class="card text-center pt-1 border-primary shadow">
+                        <div class="card-title" style="font-size: 1.8rem; font-weight: 600;">出勤比率</div>
+                        <div class="card-body" id="attendance_rate" style="font-size: 2rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid py-5 px-5">
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <div class="card text-center pt-3 border-primary shadow">
+                        <div class="card-body">
+                            <div class="card-title pb-4" style="font-size: 1.8rem; font-weight: 600;">每日上課時數</div>
+                            <canvas
+                                id="attendance_hours"
+                                width="400"
+                                height="200"
+                            ></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="card text-center pt-3 border-primary shadow">
+                        <div class="card-body">
+                            <div class="card-title pb-4" style="font-size: 1.8rem; font-weight: 600;">每日在校時數</div>
+                            <canvas
+                                id="raw_hours"
+                                width="400"
+                                height="200"
+                            ></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="card text-center pt-3 border-primary shadow">
+                        <div class="card-body">
+                            <div class="card-title pb-4" style="font-size: 1.8rem; font-weight: 600;">出席狀況</div>
+                            <canvas
+                                id="attendance"
+                                width="400"
+                                height="200"
+                            ></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            fetch("attendance_log.json")
+                .then((res) => res.json())
+                .then((data) => {
+                    document.getElementById(
+                        "student_name"
+                    ).innerHTML = `Student Name: ${data["data"][0]["name"]}`;
+                    document.getElementById(
+                        "class_hours"
+                    ).innerHTML = `${data["data"][0]["class_hours"]} hr`;
+                    document.getElementById(
+                        "attended_hours"
+                    ).innerHTML = `${data["data"][0]["attended_hours"]} hr`;
+                    document.getElementById(
+                        "absent_hours"
+                    ).innerHTML = `${data["data"][0]["absent_hours"]} hr`;
+                    document.getElementById(
+                        "late_hours"
+                    ).innerHTML = `${data["data"][0]["late_hours"]} hr`;
+                    document.getElementById(
+                        "leave_early_hours"
+                    ).innerHTML = `${data["data"][0]["leave_early_hours"]} hr`;
+                    document.getElementById(
+                        "attendance_rate"
+                    ).innerHTML = `${data["data"][0]["attendance_rate"]*100} %`;
+
+                    const ctx3 = document.getElementById("attendance");
+                    new Chart(ctx3, {
+                        type: "pie",
+                        data: {
+                            labels: ["出席", "缺席"],
+                            datasets: [
+                                {
+                                    label: "出席狀況",
+                                    data: [
+                                        data["data"][0]["attendance_rate"],
+                                        1 - data["data"][0]["attendance_rate"],
+                                    ],
+                                    backgroundColor: [
+                                        "rgba(255, 99, 132, 0.6)",
+                                        "rgba(54, 162, 235, 0.6)",
+                                    ],
+                                    borderColor: [
+                                        "rgba(255, 99, 132, 1)",
+                                        "rgba(54, 162, 235, 1)",
+                                    ],
+                                    borderWidth: 1, // 邊框寬度
+                                },
+                            ],
+                        },
+                    });
+                });
+        </script>
+
+        <script>
+            fetch("attendance_2.json")
+                .then((res) => res.json())
+                .then((data) => {
+                    let date = [];
+                    let attended_hours = [];
+                    let raw_hours = [];
+
+                    for (let i = 0; i < data["data"].length; i++) {
+                        date.push(data["data"][i]["class_date"]);
+                        attended_hours.push(data["data"][i]["attended_hours"]);
+                        raw_hours.push(data["data"][i]["raw_hours"]);
+                    }
+
+                    const ctx1 = document.getElementById("attendance_hours");
+                    const ctx2 = document.getElementById("raw_hours");
+
+                    new Chart(ctx1, {
+                        type: "line",
+                        data: {
+                            labels: date,
+                            datasets: [
+                                {
+                                    label: "每日上課時數",
+                                    data: attended_hours,
+                                    backgroundColor: [
+                                        "rgba(255, 99, 132, 0.6)",
+                                        "rgba(54, 162, 235, 0.6)",
+                                        "rgba(255, 206, 86, 0.6)",
+                                        "rgba(75, 192, 192, 0.6)",
+                                        "rgba(153, 102, 255, 0.6)",
+                                    ],
+                                    borderColor: [
+                                        "rgba(255, 99, 132, 1)",
+                                        "rgba(54, 162, 235, 1)",
+                                        "rgba(255, 206, 86, 1)",
+                                        "rgba(75, 192, 192, 1)",
+                                        "rgba(153, 102, 255, 1)",
+                                    ],
+                                    borderWidth: 1, // 邊框寬度
+                                },
+                            ],
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true, // Y 軸從 0 開始
+                                },
+                            },
+                        },
+                    });
+
+                    new Chart(ctx2, {
+                        type: "bar",
+                        data: {
+                            labels: date,
+                            datasets: [
+                                {
+                                    label: "每日在校時數",
+                                    data: raw_hours,
+                                    backgroundColor: [
+                                        "rgba(255, 99, 132, 0.6)",
+                                        "rgba(54, 162, 235, 0.6)",
+                                        "rgba(255, 206, 86, 0.6)",
+                                        "rgba(75, 192, 192, 0.6)",
+                                        "rgba(153, 102, 255, 0.6)",
+                                    ],
+                                    borderColor: [
+                                        "rgba(255, 99, 132, 1)",
+                                        "rgba(54, 162, 235, 1)",
+                                        "rgba(255, 206, 86, 1)",
+                                        "rgba(75, 192, 192, 1)",
+                                        "rgba(153, 102, 255, 1)",
+                                    ],
+                                    borderWidth: 1, // 邊框寬度
+                                },
+                            ],
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true, // Y 軸從 0 開始
+                                },
+                            },
+                        },
+                    });
+                });
+        </script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+            integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+            crossorigin="anonymous"
+        ></script>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+            integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+            crossorigin="anonymous"
+        ></script>
+    </body>
+</html>
