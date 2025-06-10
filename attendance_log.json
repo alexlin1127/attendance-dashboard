@@ -1,13 +1,14 @@
 {
-    "data": [
-        {
-            "name": "Alex",
-            "class_hours": "187.00",
-            "attended_hours": "152.11",
-            "absent_hours": "35.91",
-            "late_hours": "12.32",
-            "leave_early_hours": "3.90",
-            "attendance_rate": "0.81"
-        }
-    ]
+  "data": [
+    {
+      "name": "Alex",
+      "datarows": "32",
+      "class_hours": "187.00",
+      "attended_hours": "152.11",
+      "absent_hours": "35.91",
+      "late_hours": "12.32",
+      "leave_early_hours": "3.90",
+      "attendance_rate": "0.81"
+    }
+  ]
 }
