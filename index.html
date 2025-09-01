@@ -14,23 +14,56 @@
         />
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        
+
         <style>
             body {
                 background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
                 background-attachment: fixed;
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                margin: 0;
+                padding: 0;
             }
-            
+
+            .card {
+                background: rgba(255, 255, 255, 0.75);
+                backdrop-filter: blur(10px);
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+            }
+
             .chart-container {
                 position: relative;
                 height: 300px;
                 width: 100%;
             }
+
+            .card-title {
+                font-size: 1.5rem;
+                font-weight: bold;
+                color: #2c3e50;
+            }
+
+            .card-text {
+                font-size: 1rem;
+                color: #7f8c8d;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+                font-weight: bold;
+                color: #2c3e50;
+            }
         </style>
     </head>
 
-    <body class="bg-gradient">
+    <body>
         <div class="container-fluid py-4">
             <!-- Header Section -->
             <div class="card bg-white bg-opacity-75 shadow-lg rounded-4 mb-4 mx-3 border-0">
@@ -43,56 +76,56 @@
             <!-- Statistics Cards -->
             <div class="row g-3 mx-3 mb-4">
                 <div class="col-12 col-sm-6 col-lg-2">
-                    <div class="card h-100 bg-white bg-opacity-75 shadow border-0 rounded-4 text-center">
+                    <div class="card h-100">
                         <div class="card-body d-flex flex-column justify-content-center">
                             <i class="fas fa-clock fs-1 text-primary mb-2"></i>
-                            <p class="card-text text-muted small mb-1">總課程時數</p>
-                            <h5 class="card-title fw-bold text-dark mb-0" id="class_hours"></h5>
+                            <p class="card-text">總課程時數</p>
+                            <h5 class="stat-value" id="class_hours"></h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-2">
-                    <div class="card h-100 bg-white bg-opacity-75 shadow border-0 rounded-4 text-center">
+                    <div class="card h-100">
                         <div class="card-body d-flex flex-column justify-content-center">
                             <i class="fas fa-check-circle fs-1 text-success mb-2"></i>
-                            <p class="card-text text-muted small mb-1">實際上課時數</p>
-                            <h5 class="card-title fw-bold text-dark mb-0" id="attended_hours"></h5>
+                            <p class="card-text">實際上課時數</p>
+                            <h5 class="stat-value" id="attended_hours"></h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-2">
-                    <div class="card h-100 bg-white bg-opacity-75 shadow border-0 rounded-4 text-center">
+                    <div class="card h-100">
                         <div class="card-body d-flex flex-column justify-content-center">
                             <i class="fas fa-times-circle fs-1 text-danger mb-2"></i>
-                            <p class="card-text text-muted small mb-1">缺席時數</p>
-                            <h5 class="card-title fw-bold text-dark mb-0" id="absent_hours"></h5>
+                            <p class="card-text">缺席時數</p>
+                            <h5 class="stat-value" id="absent_hours"></h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-2">
-                    <div class="card h-100 bg-white bg-opacity-75 shadow border-0 rounded-4 text-center">
+                    <div class="card h-100">
                         <div class="card-body d-flex flex-column justify-content-center">
                             <i class="fas fa-exclamation-triangle fs-1 text-warning mb-2"></i>
-                            <p class="card-text text-muted small mb-1">遲到時數</p>
-                            <h5 class="card-title fw-bold text-dark mb-0" id="late_hours"></h5>
+                            <p class="card-text">遲到時數</p>
+                            <h5 class="stat-value" id="late_hours"></h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-2">
-                    <div class="card h-100 bg-white bg-opacity-75 shadow border-0 rounded-4 text-center">
+                    <div class="card h-100">
                         <div class="card-body d-flex flex-column justify-content-center">
                             <i class="fas fa-arrow-left fs-1 text-secondary mb-2"></i>
-                            <p class="card-text text-muted small mb-1">早退時數</p>
-                            <h5 class="card-title fw-bold text-dark mb-0" id="leave_early_hours"></h5>
+                            <p class="card-text">早退時數</p>
+                            <h5 class="stat-value" id="leave_early_hours"></h5>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-lg-2">
-                    <div class="card h-100 bg-white bg-opacity-75 shadow border-0 rounded-4 text-center">
+                    <div class="card h-100">
                         <div class="card-body d-flex flex-column justify-content-center">
                             <i class="fas fa-percentage fs-1 text-info mb-2"></i>
-                            <p class="card-text text-muted small mb-1">出勤比率</p>
-                            <h5 class="card-title fw-bold text-dark mb-0" id="attendance_rate"></h5>
+                            <p class="card-text">出勤比率</p>
+                            <h5 class="stat-value" id="attendance_rate"></h5>
                         </div>
                     </div>
                 </div>
@@ -101,9 +134,9 @@
             <!-- Charts Section -->
             <div class="row g-4 mx-3">
                 <div class="col-12 col-lg-4">
-                    <div class="card h-100 bg-white bg-opacity-75 shadow border-0 rounded-4">
+                    <div class="card h-100">
                         <div class="card-header bg-transparent border-0 text-center pt-4">
-                            <h5 class="card-title fw-bold text-dark mb-0">
+                            <h5 class="card-title">
                                 <i class="fas fa-chart-line text-primary me-2"></i>
                                 每日上課時數
                             </h5>
@@ -116,9 +149,9 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
-                    <div class="card h-100 bg-white bg-opacity-75 shadow border-0 rounded-4">
+                    <div class="card h-100">
                         <div class="card-header bg-transparent border-0 text-center pt-4">
-                            <h5 class="card-title fw-bold text-dark mb-0">
+                            <h5 class="card-title">
                                 <i class="fas fa-chart-bar text-success me-2"></i>
                                 每日在校時數
                             </h5>
@@ -131,9 +164,9 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
-                    <div class="card h-100 bg-white bg-opacity-75 shadow border-0 rounded-4">
+                    <div class="card h-100">
                         <div class="card-header bg-transparent border-0 text-center pt-4">
-                            <h5 class="card-title fw-bold text-dark mb-0">
+                            <h5 class="card-title">
                                 <i class="fas fa-chart-pie text-danger me-2"></i>
                                 出席狀況
                             </h5>
